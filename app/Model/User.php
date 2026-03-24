@@ -10,21 +10,19 @@ class User extends Model implements IdentityInterface
 {
     use HasFactory;
 
-    protected $table = 'users';
     public $timestamps = false;
     protected $fillable = [
         'name',
         'login',
-        'password',
-        'surname',
-        'birth',
-        'patronymic'
+        'password'
     ];
 
-
-    public function setPasswordAttribute($value)
+    protected static function booted()
     {
-        $this->attributes['password'] = md5($value);
+        static::created(function ($user) {
+            $user->password = md5($user->password);
+            $user->save();
+        });
     }
 
     //Выборка пользователя по первичному ключу
@@ -46,3 +44,5 @@ class User extends Model implements IdentityInterface
             'password' => md5($credentials['password'])])->first();
     }
 }
+
+//awd

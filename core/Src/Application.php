@@ -3,8 +3,8 @@
 namespace Src;
 
 use Error;
-use Illuminate\Container\Container;
 use Illuminate\Events\Dispatcher;
+use Illuminate\Container\Container;
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Src\Auth\Auth;
 

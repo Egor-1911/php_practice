@@ -3,6 +3,7 @@
 
 <h3><?= app()->auth->user()->name ?? ''; ?></h3>
 
+
 <?php
 if (!app()->auth::check()):
     ?>

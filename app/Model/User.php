@@ -14,15 +14,15 @@ class User extends Model implements IdentityInterface
     protected $fillable = [
         'name',
         'login',
-        'password'
+        'password',
+        'birth',
+        'patronymic',
+        'surname'
     ];
 
-    protected static function booted()
+    public function setPasswordAttribute($value)
     {
-        static::created(function ($user) {
-            $user->password = md5($user->password);
-            $user->save();
-        });
+        $this->attributes['password'] = md5($value);
     }
 
     //Выборка пользователя по первичному ключу
@@ -44,5 +44,3 @@ class User extends Model implements IdentityInterface
             'password' => md5($credentials['password'])])->first();
     }
 }
-
-//awd

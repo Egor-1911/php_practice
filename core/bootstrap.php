@@ -13,6 +13,7 @@ function app() {
     return $app;
 }
 
+
 //Функция, возвращающая массив всех настроек приложения
 function getConfigs(string $path = DIR_CONFIG): array
 {

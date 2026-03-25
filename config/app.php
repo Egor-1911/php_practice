@@ -1,4 +1,5 @@
 <?php
+
 return [
     //Класс аутентификации
     'auth' => \Src\Auth\Auth::class,

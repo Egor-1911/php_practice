@@ -31,6 +31,7 @@ class Middleware
         $this->middlewareCollector = new RouteCollector(new Std(), new MarkBased());
     }
 
+
     //Запуск всех middlewares для текущего маршрута
     public function runMiddlewares(string $httpMethod, string $uri): Request
     {

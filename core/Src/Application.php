@@ -2,6 +2,7 @@
 
 namespace Src;
 
+
 use Error;
 use Illuminate\Events\Dispatcher;
 use Illuminate\Container\Container;

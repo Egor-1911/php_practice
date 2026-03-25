@@ -1,5 +1,6 @@
 <h2>Регистрация нового пользователя</h2>
 <h3><?= $message ?? ''; ?></h3>
+
 <form class="signup-form" method="post">
     <input type="text" name="surname" placeholder="Фамилия">
     <input type="text" name="name" placeholder="Имя">

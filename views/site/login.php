@@ -8,6 +8,9 @@
 if (!app()->auth::check()):
     ?>
     <form class="signup-form" method="post">
+
+        <input name="csrf_token" type="hidden" value="<?= app()->auth::generateCSRF() ?>"/>
+
         <input type="text" name="login" placeholder="Логин">
         <input type="password" name="password" placeholder="Пароль">
         <button>Войти</button>

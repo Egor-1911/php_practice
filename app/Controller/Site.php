@@ -33,7 +33,7 @@ class Site
             app()->route->redirect('/hello');
         }
         //Если аутентификация не удалась, то сообщение об ошибке
-        return new View('site.login', ['message' => 'Неправильные логин или пароль']);
+        return (new View('site.login', ['message' => 'Неправильные логин или пароль']))->render();
     }
 
     public function logout(): void

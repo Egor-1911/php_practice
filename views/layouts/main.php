@@ -20,13 +20,14 @@
             ?>
 
             <a href="<?= app()->route->getUrl('/login') ?>">Вход</a>
-            <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация</a>
+
         <?php
         else:
             ?>
             <?php if (app()->auth::user() && app()->auth::user()->role_id == 1): ?>
                 <a href="<?= app()->route->getUrl('/admin') ?>">Админ-панель</a>
                 <a href="<?= app()->route->getUrl('/admin/directory') ?>">Вся информация</a>
+                <a href="<?= app()->route->getUrl('/signup') ?>">Регистрация нового пользователя</a>
             <?php endif; ?>
 
             <a href="<?= app()->route->getUrl('/logout') ?>">Выход (<?= app()->auth::user()->name ?>)</a>

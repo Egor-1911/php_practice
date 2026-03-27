@@ -6,6 +6,7 @@ use Model\Post;
 use Src\View;
 use Src\Request;
 use Model\User;
+use Model\Phone;
 use Src\Auth\Auth;
 use Src\Validator\Validator;
 
@@ -30,7 +31,7 @@ class Site
         }
         //Если удалось аутентифицировать пользователя, то редирект
         if (Auth::attempt($request->all())) {
-            app()->route->redirect('/hello');
+            app()->route->redirect('/');
         }
         //Если аутентификация не удалась, то сообщение об ошибке
         return (new View('site.login', ['message' => 'Неправильные логин или пароль']))->render();
@@ -39,7 +40,7 @@ class Site
     public function logout(): void
     {
         Auth::logout();
-        app()->route->redirect('/hello');
+        app()->route->redirect('/');
     }
 
     public function signup(Request $request): string
@@ -66,4 +67,25 @@ class Site
         }
         return new View('site.signup');
     }
+
+
+    public function myPhones(): string
+    {
+        if (!Auth::check()) {
+            app()->route->redirect('/login');
+        }
+
+        $user = Auth::user();
+
+        // Получаем телефоны только этого пользователя с подгрузкой связей
+        $phones = Phone::with(['room.department'])
+            ->where('user_id', $user->id)
+            ->get();
+
+        return new View('site.my_phones', [
+            'phones' => $phones,
+            'user' => $user
+        ]);
+    }
+
 }

@@ -14,7 +14,7 @@
 <body>
 <header>
     <nav>
-        <a href="<?= app()->route->getUrl('/hello') ?>">Главная</a>
+        <a href="<?= app()->route->getUrl('/') ?>">Главная</a>
         <?php
         if (!app()->auth::check()):
             ?>
@@ -26,9 +26,16 @@
             ?>
             <?php if (app()->auth::user() && app()->auth::user()->role_id == 1): ?>
                 <a href="<?= app()->route->getUrl('/admin') ?>">Админ-панель</a>
+                <a href="<?= app()->route->getUrl('/admin/directory') ?>">Вся информация</a>
             <?php endif; ?>
 
             <a href="<?= app()->route->getUrl('/logout') ?>">Выход (<?= app()->auth::user()->name ?>)</a>
+
+            <?php if (app()->auth::user() && app()->auth::user()->role_id == 2): ?>
+                <a href="<?= app()->route->getUrl('/my-phones') ?>">Мои телефоны</a>
+            <?php endif; ?>
+
+
         <?php
         endif;
         ?>

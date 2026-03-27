@@ -53,7 +53,6 @@ class User extends Model implements IdentityInterface
     // Метод для проверки прав
     public function isAdmin(): bool
     {
-        // Проверяем, есть ли роль у пользователя и совпадает ли имя
-        return $this->role && $this->role->role_name === 'admin';
+        return $this->role_id == 1;
     }
 }

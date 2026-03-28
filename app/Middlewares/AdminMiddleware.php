@@ -8,14 +8,8 @@ class AdminMiddleware
 {
     public function handle(Request $request)
     {
-        if (!Auth::check()) {
+        if (!Auth::user()->isAdmin()) {
             app()->route->redirect('/login');
-            exit;
-        }
-
-        if (!Auth::user() || !Auth::user()->isAdmin()) {
-            app()->route->redirect('/hello');
-            exit;
         }
     }
 }

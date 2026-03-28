@@ -8,6 +8,7 @@ return [
     //Классы для middleware
     'routeMiddleware' => [
         'auth' => \Middlewares\AuthMiddleware::class,
+        'admin' => \Middlewares\AdminMiddleware::class,
     ],
     'validators' => [
     'required' => \Validators\RequireValidator::class,

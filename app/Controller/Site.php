@@ -8,7 +8,7 @@ use Src\Request;
 use Model\User;
 use Model\Phone;
 use Src\Auth\Auth;
-use Src\Validator\Validator;
+use Egor1911\Validator\Validator;
 
 class Site
 {
@@ -29,6 +29,25 @@ class Site
         if ($request->method === 'GET') {
             return new View('site.login');
         }
+
+        $validator = new Validator(
+            $request->all(),
+            [
+                'login' => ['required'],
+                'password' => ['required']
+            ],
+            [
+                'required' => 'Поле :field пусто'
+            ],
+            app()->settings->app['validators']
+        );
+
+        if ($validator->fails()) {
+            return new View('site.login', [
+                'message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)
+            ]);
+        }
+
         //Если удалось аутентифицировать пользователя, то редирект
         if (Auth::attempt($request->all())) {
             app()->route->redirect('/');
@@ -47,16 +66,24 @@ class Site
     {
         if ($request->method === 'POST') {
 
-            $validator = new Validator($request->all(), [
-                'name' => ['required'],
-                'login' => ['required', 'unique:users,login'],
-                'password' => ['required']
-            ], [
-                'required' => 'Поле :field пусто',
-                'unique' => 'Поле :field должно быть уникально'
-            ]);
+            $validator = new Validator(
+                $request->all(),
+                [
+                    'surname' => ['required'],
+                    'name' => ['required'],
+                    'patronymic' => ['required'],
+                    'birth' => ['required'],
+                    'login' => ['required', 'unique:users,login'],
+                    'password' => ['required']
+                ],
+                [
+                    'required' => 'Поле :field пусто',
+                    'unique' => 'Поле :field должно быть уникально'
+                ],
+                app()->settings->app['validators']
+            );
 
-            if($validator->fails()){
+            if ($validator->fails()) {
                 return new View('site.signup',
                     ['message' => json_encode($validator->errors(), JSON_UNESCAPED_UNICODE)]);
             }
@@ -65,6 +92,7 @@ class Site
                 app()->route->redirect('/login');
             }
         }
+
         return new View('site.signup');
     }
 

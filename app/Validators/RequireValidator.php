@@ -2,7 +2,7 @@
 
 namespace Validators;
 
-use Src\Validator\AbstractValidator;
+use Egor1911\Validator\AbstractValidator;
 
 class RequireValidator extends AbstractValidator
 {
@@ -14,3 +14,5 @@ class RequireValidator extends AbstractValidator
         return !empty($this->value);
     }
 }
+
+//
